@@ -14,19 +14,26 @@ jobs:
     strategy:
       matrix:
         mediawiki_version: [1.35]
-    container:
-      image: mediawiki:${{ matrix.mediawiki_version }}
-      options: --link some-mysql:mysql
-
-    env:
-      EXT_NAME: SemanticMediaWiki
-      COMPOSER_VERSION: 1
-      MW_INST_PATH: /var/www/html
-      MW_DB_PATH: /var/www/data
-      MW_EXT_PATH: /var/www/html/extensions
-      MYSQL_USER: root
-      MYSQL_PASSWORD: mysql
-      MYSQL_DATABASE: wiki
+    services:
+      mysql:
+        image: bitnami/mariadb:latest
+        volumes:
+          - mariadbdata:/bitnami/mariadb
+        env:
+          - MARIADB_USER=root
+          - MARIADB_PASSWORD=mysql
+      mediawiki:
+        image: mediawiki:${{ matrix.mediawiki_version }}
+        options: --link some-mysql:mysql
+        env:
+          EXT_NAME: SemanticMediaWiki
+          COMPOSER_VERSION: 1
+          MW_INST_PATH: /var/www/html
+          MW_DB_PATH: /var/www/data
+          MW_EXT_PATH: /var/www/html/extensions
+          MYSQL_USER: root
+          MYSQL_PASSWORD: mysql
+          MYSQL_DATABASE: wiki
 
     steps:
       # https://getcomposer.org/download/
@@ -51,6 +58,7 @@ jobs:
           --server="http://localhost:8000"
           --scriptpath=""
           --dbtype=mysql
+          --dbserver=mysql
           --installdbuser=${{ env.MYSQL_USER }}
           --installdbpass=${{ env.MYSQL_PASSWORD }}
           --dbname=${{ env.MYSQL_DATABASE }}
