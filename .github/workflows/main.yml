@@ -15,7 +15,7 @@ jobs:
       matrix:
         mediawiki_version: [1.35]
     services:
-      mysql:
+      local-mysql:
         image: mariadb:latest
         env:
           MARIADB_ROOT_PASSWORD: mysql
@@ -59,7 +59,7 @@ jobs:
           --server="http://localhost:8000"
           --scriptpath=""
           --dbtype=mysql
-          --dbserver=local-mysql
+          --dbserver=mysql
           --installdbuser=${{ env.MYSQL_USER }}
           --installdbpass=${{ env.MYSQL_PASSWORD }}
           --dbname=${{ env.MYSQL_DATABASE }}
