@@ -38,10 +38,6 @@ jobs:
       MYSQL_PASSWORD: mysql
       MYSQL_DATABASE: wiki
 
-    networks:
-      lognet:
-        driver: bridge
-
     steps:
       # https://getcomposer.org/download/
       - name: Get Composer
