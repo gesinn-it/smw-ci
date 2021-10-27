@@ -57,17 +57,18 @@ jobs:
           echo '$wgShowExceptionDetails = true;' >> ${{ env.MW_INST_PATH }}/LocalSettings.php
           echo '$wgDevelopmentWarnings = true;' >> ${{ env.MW_INST_PATH }}/LocalSettings.php
 
-      - name: Checkout Extension
+      - name: Checkout SemanticMediaWiki
         uses: actions/checkout@v2
         with:
-          path: ${{ env.EXT_NAME }}
+          repository: SemanticMediaWiki/SemanticMediaWiki
+          path: SemanticMediaWiki
 
       # Setting actions/checkout@v2 path to env.MW_EXT_PATH fails with "Repository path '/var/www/html/extensions' is not under ..."
       # See also open PR https://github.com/actions/checkout/pull/388
-      - name: Move Extension
+      - name: Move SemanticMediaWiki
         run: |
           mkdir -p ${{ env.MW_EXT_PATH }}
-          mv ${{ env.EXT_NAME }} ${{ env.MW_EXT_PATH }}
+          mv SemanticMediaWiki ${{ env.MW_EXT_PATH }}
 
       - name: Install SemanticMediaWiki
         run: |
