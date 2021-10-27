@@ -14,8 +14,9 @@ jobs:
     strategy:
       matrix:
         mediawiki_version: [1.35]
-    container: mediawiki:${{ matrix.mediawiki_version }}
-    options: --link some-mysql:mysql
+    container:
+      image: mediawiki:${{ matrix.mediawiki_version }}
+      options: --link some-mysql:mysql
 
     env:
       EXT_NAME: SemanticMediaWiki
