@@ -24,7 +24,7 @@ jobs:
 
     container:
       image: mediawiki:${{ matrix.mediawiki_version }}
-      options: --network-alias mysql
+      options: --link local-mysql:mysql
 
     env:
       EXT_NAME: SemanticMediaWiki
@@ -58,8 +58,7 @@ jobs:
           --pass=Password123456
           --server="http://localhost:8000"
           --scriptpath=""
-          --dbtype=mysql
-          --dbserver=mysql
+          --dbtype=local-mysql
           --installdbuser=${{ env.MYSQL_USER }}
           --installdbpass=${{ env.MYSQL_PASSWORD }}
           --dbname=${{ env.MYSQL_DATABASE }}
