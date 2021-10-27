@@ -21,10 +21,12 @@ jobs:
           MARIADB_ROOT_PASSWORD: mysql
           MARIADB_USER: root
           MARIADB_PASSWORD: mysql
+        ports:
+          - 3306:3306
 
     container:
       image: mediawiki:${{ matrix.mediawiki_version }}
-      options: --link local-mysql:mysql
+#      options: --link local-mysql:mysql
 
     env:
       EXT_NAME: SemanticMediaWiki
@@ -35,6 +37,10 @@ jobs:
       MYSQL_USER: root
       MYSQL_PASSWORD: mysql
       MYSQL_DATABASE: wiki
+
+    networks:
+      lognet:
+        driver: bridge
 
     steps:
       # https://getcomposer.org/download/
@@ -59,7 +65,6 @@ jobs:
           --server="http://localhost:8000"
           --scriptpath=""
           --dbtype=mysql
-          --dbserver=mysql
           --installdbuser=${{ env.MYSQL_USER }}
           --installdbpass=${{ env.MYSQL_PASSWORD }}
           --dbname=${{ env.MYSQL_DATABASE }}
