@@ -20,8 +20,8 @@ jobs:
         volumes:
           - mariadbdata:/bitnami/mariadb
         env:
-          - MARIADB_USER=root
-          - MARIADB_PASSWORD=mysql
+          MARIADB_USER=root
+          MARIADB_PASSWORD=mysql
       mediawiki:
         image: mediawiki:${{ matrix.mediawiki_version }}
         options: --link some-mysql:mysql
