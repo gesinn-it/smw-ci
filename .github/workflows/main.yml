@@ -31,11 +31,9 @@ jobs:
 
     services:
       mysql:
-        image: bitnami/mariadb:latest
-        volumes:
-          - mariadbdata:/bitnami/mariadb
+        image: mariadb:latest
         env:
-          MARIADB_ROOT_PASSWORD: root
+          MARIADB_ROOT_PASSWORD: mysql
           MARIADB_USER: root
           MARIADB_PASSWORD: mysql
 
