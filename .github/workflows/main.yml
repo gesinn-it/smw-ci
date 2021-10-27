@@ -62,7 +62,6 @@ jobs:
           --server="http://localhost:8000"
           --scriptpath=""
           --dbtype=mysql
-#          --dbserver=mysql
           --installdbuser=${{ env.MYSQL_USER }}
           --installdbpass=${{ env.MYSQL_PASSWORD }}
           --dbname=${{ env.MYSQL_DATABASE }}
