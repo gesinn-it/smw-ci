@@ -63,6 +63,8 @@ jobs:
           --installdbuser=${{ env.MYSQL_USER }}
           --installdbpass=${{ env.MYSQL_PASSWORD }}
           --dbname=${{ env.MYSQL_DATABASE }}
+          --dbuser=wiki
+          --dbpass=wiki
           --dbpath=${{ env.MW_DB_PATH }}
           ${{ env.EXT_NAME }}-test WikiSysop
 
