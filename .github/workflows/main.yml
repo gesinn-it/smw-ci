@@ -72,6 +72,7 @@ jobs:
           echo 'ini_set("display_errors", 1);' >> ${{ env.MW_INST_PATH }}/LocalSettings.php
           echo '$wgShowExceptionDetails = true;' >> ${{ env.MW_INST_PATH }}/LocalSettings.php
           echo '$wgDevelopmentWarnings = true;' >> ${{ env.MW_INST_PATH }}/LocalSettings.php
+          cat ${{ env.MW_INST_PATH }}/LocalSettings.php
 
 #      - name: Checkout SemanticMediaWiki
 #        uses: actions/checkout@v2
@@ -89,6 +90,7 @@ jobs:
       - name: Install SemanticMediaWiki
         run: |
           COMPOSER=composer.local.json composer require --no-update --working-dir ${{ env.MW_INST_PATH }} mediawiki/semantic-media-wiki dev-master
+          cat ${{ env.MW_INST_PATH }}/composer.local.json
           composer update --working-dir ${{ env.MW_INST_PATH }}
           echo "enableSemantics( 'localhost' );" >> ${{ env.MW_INST_PATH }}/LocalSettings.php
           tail -n5 ${{ env.MW_INST_PATH }}/LocalSettings.php
