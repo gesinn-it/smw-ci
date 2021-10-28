@@ -73,23 +73,23 @@ jobs:
           echo '$wgShowExceptionDetails = true;' >> ${{ env.MW_INST_PATH }}/LocalSettings.php
           echo '$wgDevelopmentWarnings = true;' >> ${{ env.MW_INST_PATH }}/LocalSettings.php
 
-      - name: Checkout SemanticMediaWiki
-        uses: actions/checkout@v2
-        with:
-          repository: SemanticMediaWiki/SemanticMediaWiki
-          path: SemanticMediaWiki
+#      - name: Checkout SemanticMediaWiki
+#        uses: actions/checkout@v2
+#        with:
+#          repository: SemanticMediaWiki/SemanticMediaWiki
+#          path: SemanticMediaWiki
 
       # Setting actions/checkout@v2 path to env.MW_EXT_PATH fails with "Repository path '/var/www/html/extensions' is not under ..."
       # See also open PR https://github.com/actions/checkout/pull/388
-      - name: Move SemanticMediaWiki
-        run: |
-          mkdir -p ${{ env.MW_EXT_PATH }}
-          mv SemanticMediaWiki ${{ env.MW_EXT_PATH }}
+#      - name: Move SemanticMediaWiki
+#        run: |
+#          mkdir -p ${{ env.MW_EXT_PATH }}
+#          mv SemanticMediaWiki ${{ env.MW_EXT_PATH }}
 
       - name: Install SemanticMediaWiki
         run: |
-          COMPOSER=composer.local.json composer require --no-update --working-dir ${{ env.MW_INST_PATH }} mediawiki/semantic-media-wiki @dev
-          COMPOSER=composer.local.json composer config repositories.semantic-media-wiki '{"type": "path", "url": "extensions/SemanticMediaWiki"}' --working-dir ${{ env.MW_INST_PATH }}
+          COMPOSER=composer.local.json composer require --no-update --working-dir ${{ env.MW_INST_PATH }} mediawiki/semantic-media-wiki dev-master
+#          COMPOSER=composer.local.json composer config repositories.semantic-media-wiki '{"type": "path", "url": "extensions/SemanticMediaWiki"}' --working-dir ${{ env.MW_INST_PATH }}
           composer update --working-dir ${{ env.MW_INST_PATH }}
           echo "enableSemantics( 'localhost' );" >> ${{ env.MW_INST_PATH }}/LocalSettings.php
           tail -n5 ${{ env.MW_INST_PATH }}/LocalSettings.php
